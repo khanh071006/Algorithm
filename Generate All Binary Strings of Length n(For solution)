@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+#define FOR(i,l,r) for (int i=l;i<=r;i++)
+#define FOD(i,r,l) for (int i=r;i>=l;i--)
+#define faster ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define vt vector
+#define ll long long
+#define pb push_back
+#define ii pair<int,int>
+#define mp make_pair
+#define fi first
+#define se second
+#define all(a) (a).begin(), (a).end()
+#define sz(a) (int)(a.size()) 
+using namespace std;
+int a[21];
+int n;
+bool last_sol(){
+    FOR(i,1,n){
+        if (a[i] == 0) return false;
+    }
+    return true;
+}
+void res(){
+    FOR(i,1,n) cout << a[i];
+    cout<<'\n';
+}
+void solve(){
+    while(!last_sol()){
+        res();
+        FOD(i,n,1){
+            if (a[i] == 0){
+                a[i] = 1;
+                FOD(j,n,i+1) a[j] = 0;
+                break;
+            }
+        }
+
+    }
+}
+int main(){
+    cin >> n;
+    solve();res();
+    return 0;
+}
