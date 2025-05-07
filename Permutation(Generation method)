@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+#define FOR(i,l,r) for (int i=l;i<=r;i++)
+#define FOD(i,r,l) for (int i=r;i>=l;i--)
+#define faster ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define vt vector
+#define ll long long
+#define pb push_back
+#define ii pair<int,int>
+#define mp make_pair
+#define fi first
+#define se second
+#define all(a) (a).begin(), (a).end()
+#define sz(a) (int)(a.size()) 
+using namespace std;
+int a[10];
+int n;
+void res(){
+    FOR(i,1,n){
+        cout << a[i] << ' ';
+    }
+    cout << '\n';
+}
+void next_res(){
+    int p;
+    FOD(i,n,1){
+        if (a[i] < a[i + 1]){
+            p = i;
+            break;
+        }
+    }
+    int t = 100,p2;
+    FOR(i,p + 1,n){
+        if (t > a[i] && a[i] > a[p]){
+            t = a[i],p2 = i;
+        }
+    }
+    swap(a[p],a[p2]);
+    sort(a + p + 1,a + n + 1);
+}
+bool check(){
+    FOR(i,1,n){
+        if (a[i] != n - i + 1) return true;
+    }
+    return false;
+}
+void Sol(){
+    bool c = true;
+    while (c){
+        if (check() == false)
+            break;
+        res();
+        next_res();
+    }
+}
+int main(){
+    cin >> n;
+    FOR(i,1,n)
+        a[i] = i;
+    Sol();
+    res();
+    return 0;
+}
