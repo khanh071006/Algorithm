@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+#define FOR(i,l,r) for (int i=l;i<=r;i++)
+#define FOD(i,r,l) for (int i=r;i>=l;i--)
+#define faster ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define vt vector
+#define ll long long
+#define pb push_back
+#define ii pair<int,int>
+#define mp make_pair
+#define fi first
+#define se second
+#define all(a) (a).begin(), (a).end()
+#define sz(a) (int)(a.size()) 
+using namespace std;
+int N,m,p = 0,res = INT_MAX;
+int a[401][401];
+bool vst[21];
+int trace[21];
+void inp(){
+    cin >> N >> m;
+    FOR(i,1,m){
+        int u,v,p;
+        cin >> u >> v >> p;
+        a[u][v] = p;
+    }
+}
+void compare(int n){
+    res = min(res,n);
+}
+void Try(int n){
+    FOR(i,2,N){
+        if (!vst[i]){
+            vst[i] = true;
+            trace[n] = i;
+            if ( a[trace[n - 1]][trace[n]] > 0){
+                p += a[trace[n - 1]][trace[n]];
+                if (n == N){
+                    if (a[trace[n]][1] > 0){
+                        p += a[trace[n]][1];
+                        compare(p);
+                        p -= a[trace[n]][1];
+                    }
+                }
+                else{
+                    Try(n + 1);
+                    
+                }
+                p -= a[trace[n - 1]][trace[n]];
+                
+            }
+            vst[i] = false;
+        }
+    }
+}
+void solve(){
+    vst[1] = true;
+    trace[1] = 1;
+    Try(2);
+    cout << res;
+}
+int main(){
+    inp();
+    solve();
+    return 0;
+}
